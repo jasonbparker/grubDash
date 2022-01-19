@@ -56,7 +56,7 @@ function dishExists(req, res, next) {
   }
 }
 
-function dishHasName(req, res, next) {
+function bodyHasName(req, res, next) {
   const { data: { name } = {} } = req.body;
 
   if (name) {
@@ -65,7 +65,7 @@ function dishHasName(req, res, next) {
   next({ status: 400, message: "A 'name' property is required." });
 }
 
-function dishHasDesc(req, res, next) {
+function bodyHasDesc(req, res, next) {
   const { data: { description } = {} } = req.body;
 
   if (!description) {
@@ -77,7 +77,7 @@ function dishHasDesc(req, res, next) {
   next();
 }
 
-function dishHasPrice(req, res, next) {
+function bodyHasPrice(req, res, next) {
   const { data: { price } = {} } = req.body;
 
   if (!price) {
@@ -96,8 +96,9 @@ function dishHasPrice(req, res, next) {
   next();
 }
 
-function dishHasUrl(req, res, next) {
+function bodyHasUrl(req, res, next) {
   const { data: { image_url } = {} } = req.body;
+  //   if (image_url && image_url !== "")
   if (!image_url) {
     next({
       status: 400,
@@ -125,7 +126,7 @@ function hasValidId(req, res, next) {
 module.exports = {
   list,
   read: [dishExists, read],
-  create: [dishHasName, dishHasDesc, dishHasPrice, dishHasUrl, create],
+  create: [bodyHasName, bodyHasDesc, bodyHasPrice, bodyHasUrl, create],
   update: [
     dishExists,
     bodyHasName,
